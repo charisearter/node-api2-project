@@ -1,15 +1,19 @@
 const express = require('express');
 
 //router for posts
-const postsRoutes = require('./posts/postsRoutes');
+const postsRouter = require('./posts/postsRouter');
+
 const server = express();
 
-server.use('/api/posts', postsRoutes);
+server.use(express.json());
 
 server.use('/', (req, res) => {
   res.status(200).send('Hello from express');
 })
 
-server.listen(8000, () => {
+server.use('/api/posts', postsRouter);
+
+const PORT = 8000
+server.listen(PORT, () => {
   console.log('magic happening on port 8000');
 });

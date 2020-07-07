@@ -10,7 +10,7 @@ router.post('/', (req, res) => {
 
 //POST	/api/posts/:id/comments
 
-router.post('/', (req, res) => {
+router.post('/:id/comments', (req, res) => {
   
 });
 
@@ -20,22 +20,22 @@ router.get('/', (req, res) => {
 });
 
 //GET	/api/posts/:id
-router.get('/', (req, res) => {
+router.get('/:id', (req, res) => {
   
 });
 
 //GET	/api/posts/:id/comments
-router.get('/', (req, res) => {
+router.get('/:id/comments', (req, res) => {
   
 });
 
 //DELETE	/api/posts/:id
-router.delete('/', (req, res) => {
+router.delete('/:id', (req, res) => {
   
 });
 
 //PUT	/api/posts/:id
-router.put('/', (req, res) => {
+router.put('/:id', (req, res) => {
   
 });
 

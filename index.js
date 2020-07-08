@@ -8,7 +8,7 @@ const server = express();
 server.use(express.json());
 
 server.use('/', (req, res) => {
-  res.status(200).send('Hello from express');
+  res.status(200).send('Hello this is Node API Project 2');
 })
 
 server.use('/api/posts', postsRouter);

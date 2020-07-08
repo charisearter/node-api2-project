@@ -3,16 +3,13 @@ const db = require('../data/db');
 
 const router = express.Router();
 
-//POST	/api/posts
-//if no title or contents cancel requests, 400 code and send error json message if statement else .then
-// if valid, save post, 201 code, return new post .then()
-//if error, cancel request, 500 code and json error message this will be in the .catch()
+//POST	/api/posts  Sort of WOrks, gives me an error saying it is not there or there was an error adding it but if I do the get request for the original list, what I added does show up
 
 router.post('/', (req, res) => {
   //const newPost = req.body;
   db.insert(req.body)
   .then( post => {
-    if(!post.title || !post.contents){
+    if(!title || !contents){
       res.status(400).json({ errorMessage: "Please provide title and contents for the post."  });
     } else {
       res.status(201).json(post)
@@ -78,7 +75,19 @@ router.get('/:id/comments', (req, res) => {
 
 //DELETE	/api/posts/:id
 router.delete('/:id', (req, res) => {
-  
+  const { id } = req.params.id
+  db.remove(id)
+  .then(post => {
+    if (!id) {
+      res.status(404).json({ message: "The post with the specified ID does not exist." })
+    } else {
+      res.status(204)
+    }
+  })
+  .catch(error => {
+    console.log(error)
+    res.status(500).json({ error: "The post could not be removed" })
+  })
 });
 
 //PUT	/api/posts/:id

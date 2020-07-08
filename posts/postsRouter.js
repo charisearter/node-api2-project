@@ -30,7 +30,7 @@ router.post('/:id/comments', (req, res) => {
   
 });
 
-//GET	/api/posts
+//GET	/api/posts WORKS
 router.get('/', (req, res) => {
   db.find(req.query)
   .then( posts => {

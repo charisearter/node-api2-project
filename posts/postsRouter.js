@@ -42,9 +42,20 @@ router.get('/', (req, res) => {
   })
 });
 
-//GET	/api/posts/:id
+//GET	/api/posts/:id WORKS
 router.get('/:id', (req, res) => {
-  
+  db.findById(req.params.id) //use request params to get id
+  .then(post => {
+    if (!post) {
+      res.status(404).json({ message: "The post with the specified ID does not exist." })
+    } else {
+      res.status(200).json(post)
+    }
+  })
+  .catch(error => {
+    console.log(error)
+    res.status(500).json({ error: "The post information could not be retrieved." })
+  })
 });
 
 //GET	/api/posts/:id/comments

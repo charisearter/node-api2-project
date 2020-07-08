@@ -24,6 +24,7 @@ router.post('/', (req, res) => {
 //POST	/api/posts/:id/comments
 
 router.post('/:id/comments', (req, res) => {
+  const { id } = req.params
   
 });
 
@@ -73,15 +74,15 @@ router.get('/:id/comments', (req, res) => {
   
 });
 
-//DELETE	/api/posts/:id
+//DELETE	/api/posts/:id WORKS
 router.delete('/:id', (req, res) => {
-  const { id } = req.params.id
+  const { id } = req.params
   db.remove(id)
   .then(post => {
     if (!id) {
       res.status(404).json({ message: "The post with the specified ID does not exist." })
     } else {
-      res.status(204)
+      res.status(204).json(post)
     }
   })
   .catch(error => {

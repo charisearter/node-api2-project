@@ -9,13 +9,13 @@ const router = express.Router();
 //if error, cancel request, 500 code and json error message this will be in the .catch()
 
 router.post('/', (req, res) => {
-  const newPost = req.body;
-  db.insert(newPost)
+  //const newPost = req.body;
+  db.insert(req.body)
   .then( post => {
     if(!post.title || !post.contents){
       res.status(400).json({ errorMessage: "Please provide title and contents for the post."  });
     } else {
-      res.status(201).json(newPost)
+      res.status(201).json(post)
     }
   })
   .catch( error => {
@@ -58,8 +58,21 @@ router.get('/:id', (req, res) => {
   })
 });
 
-//GET	/api/posts/:id/comments
+//GET	/api/posts/:id/comments WORKS
 router.get('/:id/comments', (req, res) => {
+  const { id } = req.params //id is req. params
+  db.findCommentById(id)
+  .then(comment => {
+    if(!id) {
+      res.status(404).json({ message: "The post with the specified ID does not exist." })
+    } else {
+      res.status(200).json(comment)
+    }
+  })
+  .catch(error => {
+    console.log(error)
+    res.status(500).json({ error: "The comments information could not be retrieved." })
+  })
   
 });
 
